@@ -1,6 +1,6 @@
 from .block import *
 from config import *
-from tensorflow.keras.layer import Input
+from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
 
 
