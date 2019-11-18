@@ -2,6 +2,7 @@ from .block import *
 from config import *
 from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras.optimizers import Adam
 
 
 def Generator():
@@ -29,3 +30,31 @@ def Discriminator():
 	validity_output = model(image_input)
 	discriminator_model = Model(image_input, validity_output, name='Discriminator')
 	return discriminator_model
+
+
+
+def GAN(generator, discriminator):
+	'''Combined GAN model'''
+	discrimintor_optimizer = Adam(lr=GENERATOR_LEARNING_RATE, beta_1=0.5)
+    generator_optimizer = Adam(lr=DISCRIMINATOR_LEARNING_RATE, beta_1=0.5)
+	
+	discriminator = Discriminator()
+	discriminator.compile(
+		loss='binary_crossentropy',
+		optimizer=discrimintor_optimizer
+	)
+
+	generator = Generator()
+	adversarial_noise = Input(shape=(1, 1, 1, LATENT_DIMENSION))
+	image = generator(adversarial_noise)
+
+	discriminator.trainable = False
+	validity_output = discriminator(image)
+
+	gan = Model(adversarial_noise, validity_output)
+	gan.compile(
+		loss='binary_crossentropy',
+		optimizer=generator_optimizer
+	)
+
+	return generator, discriminator, gan
