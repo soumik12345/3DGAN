@@ -51,7 +51,7 @@ def GAN(generator, discriminator):
 	discriminator.trainable = False
 	validity_output = discriminator(image)
 
-	gan = Model(adversarial_noise, validity_output)
+	gan = Model(adversarial_noise, validity_output, name='3DGAN')
 	gan.compile(
 		loss='binary_crossentropy',
 		optimizer=generator_optimizer
