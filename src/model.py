@@ -11,6 +11,6 @@ def Generator():
 	x = generator_block(x, 256)
 	x = generator_block(x, 128)
 	x = generator_block(x, 64)
-	output_layer = generator_block(x, 1, 'sigmoid')
+	output_layer = generator_block(x, 1, activation='sigmoid')
 	model = Model(input_layer, output_layer, name='Generator')
 	return model
