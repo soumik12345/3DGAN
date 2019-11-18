@@ -1,4 +1,8 @@
-from torch.nn import Module, Sequential, ConvTranspose3d, ReLU, BatchNorm3d, Sigmoid
+from torch.nn import (
+    ReLU, BatchNorm3d, Sigmoid,
+    Conv3d, BatchNorm3d, LeakyReLU,
+    Module, Sequential, ConvTranspose3d
+)
 
 
 class Generator(Module):
@@ -31,3 +35,43 @@ class Generator(Module):
 		x = self.block_2(x)
 		x = self.block_3(x)
 		x = self.block_4(x)
+
+
+
+class Discrimintor(Module):
+
+    def __init__(self):
+        super(Discrimintor, self).__init__()
+        self.block_1 = Sequential(
+			Conv3d(1, 64, 4, 2, 1),
+			BatchNorm3d(64),
+			LeakyReLU()
+		)
+		self.block_2 = Sequential(
+			Conv3d(64, 128, 4, 2, 1),
+			BatchNorm3d(128),
+			LeakyReLU()
+		)
+		self.block_3 = Sequential(
+			Conv3d(128, 256, 4, 2, 1),
+			BatchNorm3d(256),
+			LeakyReLU()
+		)
+		self.block_4 = Sequential(
+			Conv3d(256, 512, 4, 2, 1),
+			BatchNorm3d(512),
+			LeakyReLU()
+		)
+		self.block_5 = Sequential(
+			Conv3d(512, 1, 2, 2, 0),
+			Sigmoid()
+		)
+    
+    def forward(self, x):
+		x = x.view(-1, 1, 32, 32, 32)
+		x = self.block_1(x)
+		x = self.block_2(x)
+		x = self.block_3(x)
+		x = self.block_4(x)
+		x = self.block_5(x)
+		return x
