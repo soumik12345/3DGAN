@@ -18,7 +18,6 @@ def download_existing_dataset(dataset_url, dataset_name):
         origin=dataset_url,
         extract=True
     )
-    path = join(dirname(path), dataset_name)
     return path
 
 
