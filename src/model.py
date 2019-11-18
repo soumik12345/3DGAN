@@ -6,10 +6,10 @@ from torch.nn import (
 
 
 class Generator(Module):
-
-    def __init__(self):
-        super(Generator, self).__init__()
-        self.block_1 = Sequential(
+	
+	def __init__(self):
+		super(Generator, self).__init__()
+		self.block_1 = Sequential(
 			ConvTranspose3d(200, 512, 4, 2, 0 ),
 			BatchNorm3d(512),
 			ReLU()
@@ -28,10 +28,10 @@ class Generator(Module):
 			ConvTranspose3d(128, 1, 4, 2, 1 ),
 			Sigmoid()
 		)
-    
-    def forward(self, x):
-        x = x.view(-1, 200, 1, 1, 1)
-        x = self.block_1(x)
+		
+	def forward(self, x):
+		x = x.view(-1, 200, 1, 1, 1)
+		x = self.block_1(x)
 		x = self.block_2(x)
 		x = self.block_3(x)
 		x = self.block_4(x)
@@ -40,9 +40,9 @@ class Generator(Module):
 
 class Discrimintor(Module):
 
-    def __init__(self):
-        super(Discrimintor, self).__init__()
-        self.block_1 = Sequential(
+	def __init__(self):
+		super(Discrimintor, self).__init__()
+		self.block_1 = Sequential(
 			Conv3d(1, 64, 4, 2, 1),
 			BatchNorm3d(64),
 			LeakyReLU()
@@ -66,8 +66,8 @@ class Discrimintor(Module):
 			Conv3d(512, 1, 2, 2, 0),
 			Sigmoid()
 		)
-    
-    def forward(self, x):
+	
+	def forward(self, x):
 		x = x.view(-1, 1, 32, 32, 32)
 		x = self.block_1(x)
 		x = self.block_2(x)
