@@ -43,6 +43,6 @@ def discriminator_block(filters, strides=2, padding='same', activation='leakyrel
             bias_initializer='zeros'
         ),
         BatchNormalization(),
-        LeakyReLU(alpha=0.2)(x) if activation == 'leakyrelu' else Activation(activation)
+        LeakyReLU(alpha=0.2) if activation == 'leakyrelu' else Activation(activation)
     ]
     return x
