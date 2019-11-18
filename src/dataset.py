@@ -27,7 +27,7 @@ def load_data(dataset_path):
         dataset_path -> Path to the dataset
     '''
     x = []
-    mat_files = glob(join(dataset_path, '*.mat'))
+    mat_files = glob(join(dataset_path, '*/*.mat'))
     for _file in tqdm(mat_files):
         data = loadmat(_file)
         x.append(data['voxel'])
