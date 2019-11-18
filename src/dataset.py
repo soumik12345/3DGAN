@@ -31,4 +31,4 @@ def load_data(dataset_path):
     for _file in tqdm(mat_files):
         data = loadmat(_file)
         x.append(data['voxel'])
-    return np.array(x)
+    return np.array(x).astype(np.float32)
