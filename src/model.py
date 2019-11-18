@@ -36,7 +36,7 @@ def Discriminator():
 def GAN(generator, discriminator):
 	'''Combined GAN model'''
 	discrimintor_optimizer = Adam(lr=GENERATOR_LEARNING_RATE, beta_1=0.5)
-    generator_optimizer = Adam(lr=DISCRIMINATOR_LEARNING_RATE, beta_1=0.5)
+	generator_optimizer = Adam(lr=DISCRIMINATOR_LEARNING_RATE, beta_1=0.5)
 	
 	discriminator = Discriminator()
 	discriminator.compile(
