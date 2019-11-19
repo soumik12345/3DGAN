@@ -3,6 +3,8 @@ from glob import glob
 from tqdm import tqdm
 from scipy.io import loadmat
 from os.path import join, dirname
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 from tensorflow.keras.utils import get_file
 
 
@@ -32,3 +34,14 @@ def load_data(dataset_path):
         data = loadmat(_file)
         x.append(data['voxel'])
     return np.array(x).astype(np.float32)
+
+
+def visualize(matrix):
+    '''Visualize Voxel Matrix
+    Params:
+        matrix -> Voxel Matrix
+    '''
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.voxels(matrix, edgecolor="r")
+    plt.show()
